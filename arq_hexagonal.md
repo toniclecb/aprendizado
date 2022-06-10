@@ -52,7 +52,12 @@ Mas pode ter dependências de frameworks de serviços gerais: logs, IoC, etc.
 
 ### Lado superior esquerdo
 
-###
+Toda requisição realizada deve ficar neste lado.
+Lado intercambiável e flexível através do qual um ator externo irá interagir com a solução. Conterá código de tecnologia específica que irá disparar eventos, normalmente um pessoa usando uma GUI ou programa externo.
+
+### Lado direito inferior
+
+Lado intercambiável e flexível que fornecerá os serviços de infraestrutura. Código de tecnologia especifica, detalhes infraestruturais, normalmente código que interage com o banco de dados, faz chamadas para o sistema de arquivos, chamadas HTTP e outros aplicativos.
 
 
 
