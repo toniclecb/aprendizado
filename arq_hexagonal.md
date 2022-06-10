@@ -234,10 +234,32 @@ O projeto hexagonal deve fazer uso de qualquer serviços de IoC de sua plataform
 
 ## Aplicativo Real - Gerenciador de tarefa
 
+Na imagem abaixo é possível localizar todos os componentes que serão utilizados no projeto e onde eles se localizam na arquitetura hexagonal:
+
+![image](https://user-images.githubusercontent.com/1041102/172971025-d90089fc-bc0d-4bc4-8954-306b12a6f879.png)
 
 
+## Quando usar ou não usar?
 
+Projetos temporais, de menor porte ou legados, no qual não se tenha previsão de alteração de tipo de front-end ou de back services, poderia ser justificável não o uso dessa abordagem.
+**É muito esforço para pouco resultado!**
 
+Projetos que fazem uso de regras de negócio dentro de banco de dados, amarrados na tecnologia, marca e provedor proprietário não se justifica uso dessa abordagem.
+**Já está desenvolvido com bases totalmente contrárias ao hexagonal!**
 
+Projetos de médio e grande porte, que supostamente possuem um longo ciclo de vida, e que precisaram ser modificados muitas vezes durante sua vida útil, que sofreram de erosão arquitetural e dívida técnica, justifica o uso dessa abordagem.
+Pois em curto prazo, o investimento se reverte em lucro pela quantidade e velocidade das mudanças.
+**Aqui sim é o caso mais claro onde o hexagonal faz sentido!**
 
+Projetos de qualquer porte que precisam ser desenvolvidos sem amarrações com front-end e back services, justificam o uso dessa abordagem.
+**Aqui é um dos casos onde o hexagonal faz sentido!**
+
+## Resumo
+
+Criar seu core não dependa de nenhum componente externo;
+A arquitetura hexagonal tem se destacado como uma ótima opção de arquitetura, pois o custo é baixo (poucos pontos negativos) e retorno é alto é rápido (muitos pontos positivos).
+
+É uma das várias opções de padrões arquiteturais encontradas no mercado hoje: DDD, Onion e Clear Architecture.
+
+![image](https://user-images.githubusercontent.com/1041102/172971889-5b40ebd0-9da9-4b0b-9ebd-f3965b3cd033.png)
 
