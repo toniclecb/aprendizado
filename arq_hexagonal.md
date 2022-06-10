@@ -138,3 +138,106 @@ Todas as classes OOP que implementam a interfaces de portas secundárias devem e
 **Hexagono 100% Isolado**
 Assim, **essas interfaces atuam como isoladores explícitos** entre o interior e o exterior da solução, tanto para o lado esquerdo de entrada, quanto o lado direito de saída, cumprindo o principal objetivo da visão hexagonal que é ter “core” da solução 100% isolado, independente de tecnologia de GUI, dispositivos externos, serviços infraestruturais e podendo ser orientado a TDD.
 
+## Adaptadores
+
+Um adaptador é um componente de software que permite uma tecnologia externa interaja com uma porta do hexágono.
+
+1. Adaptador Condutor (Driver)
+2. Adaptador Dirigido (Driven)
+
+### Adaptador Condutor (Driver)
+
+É o componente usado para converter uma solicitação de tecnologia específica em uma solicitação agnóstica e pura de sistema para uma porta condutora, traduzindo dados de entradas externos para dentro da solução. 
+**Objetivo**: Responsável por fazer integração do lado de fora para dentro do hexágono.
+
+São classes OOP que usam frameworks, convertendo dados dessas filosofías externas para dentro do hexágono, repassando as operações para a porta primária. Exemplos: 
+● classes teste junit
+● classes desktop Swing ou JavaFx
+● classes web JSF managed beans
+● classes json end point rest jax-rs
+● classes json end point rest spring mvc
+
+Para cada porta condutora, deve haver pelo menos dois adaptadores: 
+1. um para testar o comportamento via TDD.
+2. um usando a tecnologia real requerida pela solução.
+
+### Adaptador Dirigido (Driven)
+
+É o componente usado para converter chamadas de dentro do solução para fora, usando serviços de infraestrutura tecnológicos externos a solução.
+**Objetivo**: Responsável por fazer integração de dentro do hexágono para o lado de fora.
+
+Os adaptadores dirigidos são classes OOP que implementam as interfaces de portas dirigidos e que usam frameworks e tecnologias específicas, dando o suporte para aquelas necessidades de chamadas externas. Exemplos: 
+● Classe DAO via JDBC.
+● Classe EAO via JPA.
+● Classe envio via JavaMail usando SMTP.
+● Classe envio de sms consumidor de um web services jax-ws.
+● Classes cliente consumidor de um rest end point via jax-rs.
+● Classes cliente consumidor de um rest end point via Sprint RestTemplate.
+
+Para cada porta dirigidos devemos escrever pelo menos dois adaptadores: 
+1. um para o dispositivo do mundo real.
+2. outro para um simulado que imita o comportamento real, chamado de mock.
+
+## Adaptadores simulados - Mock
+
+Arquitetural hexagonal promove que a solução seja desenvolvida independentemente de seus dispositivos externos, fazendo que com a equipe de desenvolvimento foque no desenvolvimento do requisitos de negócio, ignorando dependências externas técnicas e infra estruturais.
+
+Um mock é componente usado emular ao hexágono os serviços reais ofertados de um dispositivos externo de modo que, o módulo do hexágono possa ser 100% desenvolvido, testado e homologado sem precisar instalar, configurar ou usar serviços, tecnologias ou infra estruturas pendentes a solução.
+
+Exemplos: 
+● Classe DAO que ao invés de usar JDBC, faz a persistência em memória usando HashMap.
+● Classe DAO que ao invés de usar JDBC, faz a persistência em um sgdb embutido Hsqldb.
+● Classe envio de email que ao invés de usar JavaMail, faz System.out.println.
+
+## Fluxo de Execução
+
+Na teoria, queríamos que o core do sistema, o hexágono ficasse isolado e não dependente de ninguém, mas na prática (Runtime), o **hexágono na verdade depende do lado direito**.
+Assim, estamos furando a 2º e 3º regra de dependência.
+
+Na prática:
+● O centro, o hexágono depende do lado direito.
+● Lado direito, os atores secundários não dependem do hexágono.
+
+### Inversão de Controle (Inversion of Control - IoC)
+
+É um padrão arquitetural, uma técnica de arquitetura de software usada para inverter uma linha de dependência em um bloco
+arquitetural.
+Se o componente A [->depende->] B, usando IoC é possível fazer inverter a seta, fazendo com que A [<- dependa IoC<-] B.
+A arquitetura hexagonal aplica IoC, estabelecendo o princípio modular que o **lado de fora direito tem dependência ao hexágono via IoC**!
+
+**Problema resolvido na teoria, na documentação e prática (runtime)**
+1. Lado esquerdo, os atores primários dependem do hexágono
+2. Lado direito, os atores secundários dependem do hexágono **via IoC**.
+3. O centro, o hexágono não depende de ninguém, só dele mesmo.
+
+## Dependências configuráveis
+
+Com a uso de portas polimórficas, IoC e o princípio de flexibilidade de intercâmbio de adaptadores, a arquitetura hexagonal estabelece o uso de um gerenciador de dependências de forma dinâmica e configurável em ambos o lados.
+
+**Lado condutor primário**
+A conversa é iniciada pelo driver (ator primário), portanto, o adaptador do driver tem uma dependência configurável na porta do driver, que é uma interface implementada pelo aplicativo.
+
+**Lado dirigido secundário**
+A conversa é iniciada pelo aplicativo, portanto, o aplicativo tem uma dependência configurável na porta acionada, que é uma interface implementada pelo adaptador acionado do ator secundário.
+
+Dentro do hexágono
+De forma opcional, dentro do hexágono pode haver uma sub organização que pode fazer uso de dependência configurável entre os próprios componentes internos.
+
+Dependência configurável é o princípio mais importante em que se baseia a arquitetura hexagonal, pois permite que o hexágono seja dinamicamente dissociado de qualquer tecnologia de front-end e infra-estrutura. 
+E esse desacoplamento é o que possibilita o principal objetivo da arquitetura, ou seja, ter um aplicativo que possa ser executado por vários drivers e testado isoladamente de destinatários / repositórios.
+
+O projeto hexagonal deve fazer uso de qualquer serviços de IoC de sua plataforma de preferência para montar a rede de objetos 
+(wiring) de execução da solução, tando os build de desenvolvimento, testes, homologação e produção. Exemplos Java: 
+● CDI
+● Spring IoC
+● Pico Container
+
+## Aplicativo Real - Gerenciador de tarefa
+
+
+
+
+
+
+
+
