@@ -2,20 +2,23 @@
 
 ## Os princípios de coesão e acoplamento de módulos
 
-Coesão: O nível de especificidade de uma classe para desempenhar um papel em um contexto.
-Acoplamento: Dependência e “conhecimento” entre classes.
-Granularidade: Corresponde ao nível de detalhamento;
+- Coesão: O nível de especificidade de uma classe para desempenhar um papel em um contexto.
+- Acoplamento: Dependência e “conhecimento” entre classes.
+- Granularidade: Corresponde ao nível de detalhamento;
 
 ### Os princípios de coesão de módulos
 
-REP – release reuse equivalency principle
-CRP – Common Reuse Principle
-CCP – Common Closure principle
+- REP – release reuse equivalency principle
+- CRP – Common Reuse Principle
+- CCP – Common Closure principle
 
 ### Os princípios de acoplamento de módulos
-ADP – Acyclic Dependencies principle
-SDP – Stable Dependencies principle
-SAP – Stable Abstractions principle
+
+- ADP – Acyclic Dependencies principle
+- SDP – Stable Dependencies principle
+- SAP – Stable Abstractions principle
+
+------------
 
 #### REP – release reuse equivalency principle
 Princípio da Equivalência entre o Reuso e a Distribuição
@@ -69,9 +72,14 @@ Pode-se dizer que um pacote é "mais difícil de mudar", pois mais pacotes depen
 Portanto, deve ser abstrato para que possa ser estendido quando necessário.
 
 
-Fontes:
+## Fontes:
+
 http://butunclebob.com/ArticleS.UncleBob.PrinciplesOfOod
+
 http://wiki.icmc.usp.br/images/1/15/Aula1a-scc266_design_patterns.pdf
+
 https://homepages.dcc.ufmg.br/~jefersson/cursos/dcc052/Aula12.pdf
+
 https://docplayer.com.br/1507792-Padroes-de-projeto-em-desenvolvimento-web-scc-266-prof-renata-pontin-m-fortes-renata-icmc-usp-br-pae-willian-watanabe-watinha-gmail.html
+
 https://web.fe.up.pt/~arestivo/slides/?s=solid#34
