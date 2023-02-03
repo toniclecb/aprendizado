@@ -1,0 +1,113 @@
+
+----------------------- Extending, Securing, and Dockerizing Spring Boot Microservices
+Mary Ellen Bowman
+
+- Spring Data initialization
+- initializa data from a file to a database! steps:
+schema.sql
+data.sql
+in properties: spring.jpa.hibernate.ddl-update=none
+
+Need a convertion class to Enums types:
+@Converter(autoApply=true)
+public class RegionConverter implements AttributeConverter<Region, String> {
+convertToDataBaseColumn(Region);
+convertToEntityAttribute(String);
+when tomcat initialize it will run all of it.
+
+- Spring Transactions:
+
+@Transactional
+in a method or in a class!
+
+- Logging:
+logback.xml
+in properties: logging.path=logs
+in properties: logging.files=${logging.path}/myapp.log
+
+- Unit testing with Mockito vs. integration testing
+
+Unit testing: use mockito
+@RunWith(Mockito...)
+
+integration testing: 
+@RunWith(SpringRunner.class)
+
+- Springdoc.org (includes swagger)
+add dependency
+
+getting better:
+@OpenAPIDefinition
+@Tag
+@Operation
+@ApiResponses
+
+- Spring Security
+
+invokes a class that implements UserDetailsService
+
+you have to create:
+JwtTokenProvider and JwtTokenFilter -> @PreAuthorize("hasRole('ROLE_xxx')
+
+jjwt in pom.xml
+
+WebSecurityConfiguration add JwtTokenFilter
+
+--- Dockerizing your microservice
+
+Build the jar:
+> mvn package
+Create the file:
+Dockfile (without extension)
+FROM java:8
+WORKDIR /
+ADD target/explorecali-2.0.0-SNAPSHOT.jar //
+EXPOSE 8080
+ENTRYPOINT ["java", "-jar", "/explorecali-2.0.0-SNAPSHOT.jar"]
+
+docker commands in uppercase
+
+create the docker image:
+
+> docker build -t explorecali .
+
+Run the image:
+> docker run --name ec-app -p8080:8080 -d explorecali
+
+explorecali: is the name of image!
+
+-- Create a link between images to access
+
+change localhost to ec-mysql in properties file (the url of mysql database)
+
+Create the link:
+
+> docker run --name ec-app -p 8080:8080 --link ec-mysql:mysql -d exploricali
+
+-- How to extract database properties from application
+
+Changes in properties file: application-docker.properties (new file)
+
+spring.datasource.url=jdbc:mysql://${server}:${port}/explorecali
+
+it contains the variables! will be replaced by environment 
+
+Docker run command, with environment variables and path to migration scripts:
+
+> docker run --name ec-app-docker -p 8282:8080 -v ~/db/migration:/var/migration -e server=ec-mysql -e port=3306 -e dbuser=cali_user -e dbpassword=cali_pass --link ec-mysql:mysql -d explorecali-docker
+
+-e environment variables
+-v migration scripts
+
+-- thera are maven plugins to automatize this!
+
+com.spotify -> docker-maven-plugin
+
+in the definition of plugin in pom.xml we write the same data written in dockerfile (we don't need this anymore).
+> mvn package -DskpTests docker:build
+
+it will create the image, then we run the container with docker run
+
+
+-- docker hub
+

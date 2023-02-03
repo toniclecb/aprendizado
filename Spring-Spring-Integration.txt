@@ -1,0 +1,27 @@
+Spring: Spring Integration
+Kathy Flint
+https://github.com/LinkedInLearning/spring-spring-integration-2848253
+
+- Message
+
+a discreet unit of information exchanged by participants in the business logic of an application.
+
+// Use MessageBuilder utility class to construct a Message with our domain object as payload
+GenericMessage<?> message = (GenericMessage<?>) MessageBuilder
+		.withPayload(status)
+		.build();
+
+Messages, channels, and endpoints are all under consideration in the industry standard book, Enterprise Integration Patterns.
+
+Spring Integration helps the Java developer uphold best software design practices in a message-based microservice distributed context.
+
+Loosely coupled describes the case where the dependencies of every component are loose and contractual rather than hardwired.
+Separation of concerns is a by-product of a loosely coupled system and means that the responsibilities of each component are clearly delineated and enforced.
+
+- Channel
+
+as a conduit for transmitting messages between producers and consumers.
+
+// Now, to send our message, we need a channel! (We also need subscribers before this send will be successful.)
+AbstractSubscribableChannel statusMonitorChannel = (PublishSubscribeChannel) DashboardManager.getDashboardContext().getBean("statusMonitorChannel");
+statusMonitorChannel.send(message);
