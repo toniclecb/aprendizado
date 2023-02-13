@@ -1,0 +1,42 @@
+NoSQL Essential Training
+Melanie McGee
+
+- Four main NoSQL storage types
+Key-value
+document
+wide-column
+graph
+
+
+-- Key-value
+
+cache, session management, claims processing
+redis, dynamodb
+
+-- document
+
+Content management systems (CMSs)
+mongodb, (binary json),
+large document storage, sites,
+couchdb, azure cosmos
+
+-- wide-column
+
+(Column family), sub type of key-value
+very fasting query
+big data, inventory management, retal -time analytics
+cassandra, hbase
+
+-- graph
+
+store data in nodes,
+multidimensional relacional
+social networks, fraud detection, recommendations
+neo4j, janusgraph
+
+- where nosql fails
+
+Consistency - can not tolerate trade-off
+complex sql queries
+integrity
+
